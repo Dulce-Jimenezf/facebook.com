@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Juan Pérez</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="./images/facebook.png" type="image/x-icon">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            height: 56px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #1877f2;
+            font-size: 40px;
+            margin-right: 10px;
+        }
+        
+        .search-bar {
+            background-color: #f0f2f5;
+            height: 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+        }
+        
+        .search-bar i {
+            color: #65676b;
+            margin-right: 8px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 15px;
+            width: 200px;
+        }
+        
+        .header-middle {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icon {
+            width: 111px;
+            height: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+        }
+        
+        .header-icon:hover {
+            background-color: #f0f2f5;
+            border-radius: 8px;
+        }
+        
+        .header-icon.active {
+            border-bottom: 3px solid #1877f2;
+        }
+        
+        .header-icon i {
+            font-size: 24px;
+            color: #65676b;
+        }
+        
+        .header-icon.active i {
+            color: #1877f2;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-pic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        /* Main Content */
+        .main-content {
+            display: flex;
+            padding-top: 56px;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 360px;
+            padding: 20px 8px 20px 16px;
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #e4e6e9;
+        }
+        
+        .sidebar-item img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        
+        .sidebar-item i {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e4e6e9;
+            border-radius: 50%;
+            margin-right: 12px;
+            color: #1877f2;
+            font-size: 18px;
+        }
+        
+        .sidebar-divider {
+            height: 1px;
+            background-color: #ced0d4;
+            margin: 10px 0;
+        }
+        
+        .sidebar-title {
+            color: #65676b;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 16px 0 8px 8px;
+        }
+        
+        /* Main Feed */
+        .main-feed {
+            flex: 1;
+            margin: 20px 360px 0 360px;
+            padding: 0 16px;
+        }
+        
+        .story-section {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding: 8px 0;
+        }
+        
+        .story {
+            min-width: 110px;
+            height: 200px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .story img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .create-story {
+            background-color: #ffffff;
+        }
+        
+        .create-story-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .create-story .plus-icon {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #1877f2;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border: 4px solid white;
+        }
+        
+        .post-creator {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 16px;
+        }
+        
+        .post-creator-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .post-creator-top img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+        }
+        
+        .post-creator-input {
+            flex: 1;
+            background-color: #f0f2f5;
+            border-radius: 20px;
+            padding: 10px 12px;
+            cursor: pointer;
+        }
+        
+        .post-creator-input:hover {
+            background-color: #e4e6e9;
+        }
+        
+        .post-creator-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .post-option {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .post-option:hover {
+            background-color: #f0f2f5;
+        }
+        
+        .post-option i {
+            margin-right: 8px;
+            color: #f3425f;
+        }
+        
+        .post {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 16px;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+        }
+        
+        .post-user-info h4 {
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+        
+        .post-user-info p {
+            font-size: 13px;
+            color: #65676b;
+        }
+        
+        .post-content {
+            margin-bottom: 12px;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            color: #65676b;
+            font-size: 15px;
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 4px 0;
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .post-action:hover {
+            background-color: #f0f2f5;
+        }
+        
+        .post-action i {
+            margin-right: 8px;
+            color: #65676b;
+        }
+        
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 360px;
+            padding: 20px 16px 20px 8px;
+            position: fixed;
+            top: 56px;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        
+        .contact {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .contact:hover {
+            background-color: #e4e6e9;
+        }
+        
+        .contact img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        
+        .contact-status {
+            width: 8px;
+            height: 8px;
+            background-color: #31a24c;
+            border-radius: 50%;
+            border: 2px solid #f0f2f5;
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+        }
+        
+        .contact-avatar {
+            position: relative;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .left-sidebar {
+                width: 280px;
+            }
+            
+            .right-sidebar {
+                width: 280px;
+            }
+            
+            .main-feed {
+                margin-left: 280px;
+                margin-right: 280px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .right-sidebar {
+                display: none;
+            }
+            
+            .main-feed {
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .left-sidebar {
+                display: none;
+            }
+            
+            .main-feed {
+                margin-left: 0;
+            }
+            
+            .header-middle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fab fa-facebook"></i>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar en Facebook">
+            </div>
+        </div>
+        
+        <div class="header-middle">
+            <div class="header-icon active">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-tv"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <div class="profile-pic">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" id="main-profile-pic">
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Left Sidebar -->
+        <div class="left-sidebar">
+            <div class="sidebar-item">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" id="sidebar-profile-pic">
+                <span id="sidebar-profile-name">Juan Pérez</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Amigos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Guardado</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-flag"></i>
+                <span>Páginas</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span>Grupos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-store"></i>
+                <span>Marketplace</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-tv"></i>
+                <span>Watch</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-calendar"></i>
+                <span>Eventos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-clock"></i>
+                <span>Recuerdos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-chevron-down"></i>
+                <span>Ver más</span>
+            </div>
+            
+            <div class="sidebar-divider"></div>
+            
+            <div class="sidebar-title">Tus accesos directos</div>
+            
+            <div class="sidebar-item">
+                <img src="https://via.placeholder.com/36" alt="Group">
+                <span>Viajeros del mundo</span>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://via.placeholder.com/36" alt="Group">
+                <span>Aventuras Extremas</span>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://via.placeholder.com/36" alt="Group">
+                <span>Fotografía de Viajes</span>
+            </div>
+        </div>
+        
+        <!-- Main Feed -->
+        <div class="main-feed">
+            <!-- Stories -->
+            <div class="story-section">
+                <div class="story create-story">
+                    <img src="https://via.placeholder.com/110x200" alt="Create Story">
+                    <div class="plus-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="create-story-content">
+                        <strong>Crear story</strong>
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <img src="https://via.placeholder.com/110x200" alt="Story">
+                    <div class="story-user">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="User">
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <img src="https://via.placeholder.com/110x200" alt="Story">
+                    <div class="story-user">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="User">
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <img src="https://via.placeholder.com/110x200" alt="Story">
+                    <div class="story-user">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="User">
+                    </div>
+                </div>
+                
+                <div class="story">
+                    <img src="https://via.placeholder.com/110x200" alt="Story">
+                    <div class="story-user">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="User">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post Creator -->
+            <div class="post-creator">
+                <div class="post-creator-top">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" id="post-creator-pic">
+                    <div class="post-creator-input">¿Qué estás pensando, <span id="post-creator-name">Juan</span>?</div>
+                </div>
+                <div class="post-creator-bottom">
+                    <div class="post-option">
+                        <i class="fas fa-video"></i>
+                        <span>Video en vivo</span>
+                    </div>
+                    <div class="post-option">
+                        <i class="fas fa-images"></i>
+                        <span>Foto/video</span>
+                    </div>
+                    <div class="post-option">
+                        <i class="far fa-smile"></i>
+                        <span>Sentimiento/actividad</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Posts -->
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile">
+                    <div class="post-user-info">
+                        <h4>Juan Pérez</h4>
+                        <p>Ayer a las 18:30 · <i class="fas fa-globe-americas"></i></p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>¡Acabo de reservar mi viaje a París! #Emocionado #Viajes</p>
+                </div>
+                <img src="https://via.placeholder.com/500x300" alt="Post Image" class="post-image">
+                <div class="post-stats">
+                    <div class="post-likes">
+                        <i class="fas fa-thumbs-up"></i> 24
+                    </div>
+                    <div class="post-comments">
+                        5 comentarios · 2 compartidos
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Me gusta</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comentar</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Compartir</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Profile">
+                    <div class="post-user-info">
+                        <h4>María López</h4>
+                        <p>3 de junio a las 14:15 · <i class="fas fa-user-friends"></i></p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Recomendaciones para mi viaje a Cancún :) ¿Alguien tiene tips?</p>
+                </div>
+                <img src="https://via.placeholder.com/500x300" alt="Post Image" class="post-image">
+                <div class="post-stats">
+                    <div class="post-likes">
+                        <i class="fas fa-thumbs-up"></i> 42
+                    </div>
+                    <div class="post-comments">
+                        12 comentarios · 3 compartidos
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Me gusta</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comentar</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Compartir</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Profile">
+                    <div class="post-user-info">
+                        <h4>Carlos González</h4>
+                        <p>1 de junio a las 20:45 · <i class="fas fa-globe-americas"></i></p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Próximamente: Nueva York, Tokio y Londres! #ViajeroFrecuente #Aventuras</p>
+                </div>
+                <div class="post-stats">
+                    <div class="post-likes">
+                        <i class="fas fa-thumbs-up"></i> 78
+                    </div>
+                    <div class="post-comments">
+                        23 comentarios · 7 compartidos
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Me gusta</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comentar</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Compartir</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <div class="sidebar-title">Contactos</div>
+            
+            <div class="contact">
+                <div class="contact-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Profile">
+                    <div class="contact-status"></div>
+                </div>
+                <span>María López</span>
+            </div>
+            
+            <div class="contact">
+                <div class="contact-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Profile">
+                    <div class="contact-status"></div>
+                </div>
+                <span>Carlos González</span>
+            </div>
+            
+            <div class="contact">
+                <div class="contact-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Profile">
+                    <div class="contact-status"></div>
+                </div>
+                <span>Ana Martínez</span>
+            </div>
+            
+            <div class="contact">
+                <div class="contact-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Profile">
+                    <div class="contact-status"></div>
+                </div>
+                <span>Pedro Sánchez</span>
+            </div>
+            
+            <div class="contact">
+                <div class="contact-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Profile">
+                    <div class="contact-status"></div>
+                </div>
+                <span>Laura Fernández</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos del JSON proporcionado
+        const userData = {
+            "users": [
+                {
+                    "user_id": 1,
+                    "username": "juan.perez",
+                    "email": "juan.perez@example.com",
+                    "profile": {
+                        "name": "Juan",
+                        "lastname": "Pérez García",
+                        "phone": "7221595250"
+                    },
+                    "friends": [2, 3, 5],
+                    "posts": [
+                        {
+                            "post_id": 101,
+                            "content": "¡Acabo de reservar mi viaje a París!",
+                            "timestamp": "2023-06-20T14:30:00Z",
+                            "likes": [2, 5]
+                        }
+                    ]
+                },
+                {
+                    "user_id": 2,
+                    "username": "maria.lopez",
+                    "email": "maria.lopez@example.com",
+                    "profile": {
+                        "name": "María",
+                        "lastname": "López Martínez",
+                        "phone": "7229876543"
+                    },
+                    "friends": [1, 4],
+                    "posts": [
+                        {
+                            "post_id": 205,
+                            "content": "Recomendaciones para mi viaje a Cancún :)",
+                            "timestamp": "2023-06-18T09:45:00Z",
+                            "likes": [1, 3, 4]
+                        }
+                    ]
+                },
+                {
+                    "user_id": 3,
+                    "username": "carlos.gonzalez",
+                    "email": "carlos.gonzalez@example.com",
+                    "profile": {
+                        "name": "Carlos",
+                        "lastname": "González Sánchez",
+                        "phone": "7225551234"
+                    },
+                    "friends": [1, 5],
+                    "posts": [
+                        {
+                            "post_id": 312,
+                            "content": "Próximamente: Nueva York, Tokio y Londres! #ViajeroFrecuente",
+                            "timestamp": "2023-06-15T18:20:00Z",
+                            "likes": [1, 2, 4, 5]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Mostrar información del usuario principal (Juan Pérez)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainUser = userData.users.find(user => user.user_id === 1);
+            
+            if (mainUser) {
+                document.getElementById('sidebar-profile-name').textContent = 
+                    `${mainUser.profile.name} ${mainUser.profile.lastname}`;
+                document.getElementById('post-creator-name').textContent = mainUser.profile.name;
+                
+                // Mostrar amigos en la sección de contactos
+                const friendsSection = document.querySelector('.right-sidebar');
+                mainUser.friends.forEach(friendId => {
+                    const friend = userData.users.find(user => user.user_id === friendId);
+                    if (friend) {
+                        // Ya están creados los elementos HTML para los amigos en el ejemplo
+                        // En una implementación real, podrías generarlos dinámicamente aquí
+                    }
+                });
+                
+                // Mostrar posts del usuario y sus amigos
+                const posts = [];
+                userData.users.forEach(user => {
+                    user.posts.forEach(post => {
+                        posts.push({
+                            user: user,
+                            post: post
+                        });
+                    });
+                });
+                
+                // Ordenar posts por fecha (en una implementación real)
+                // posts.sort((a, b) => new Date(b.post.timestamp) - new Date(a.post.timestamp));
+            }
+        });
+    </script>
+</body>
+</html>
